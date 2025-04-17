@@ -1,0 +1,16 @@
+Rails.application.routes.draw do
+  get "register" => "user#register"
+  post "addUser" => "user#addUser"
+  get "login" => "user#login"
+  post "loginUser" => "user#loginUser"
+  get "home" => "article#home"
+  post "addArticle" => "article#addArticle"
+  get "new"=>"article#new"
+  get "logout" => "article#logout"
+  get "delete/:id" => "article#delete"
+  get "edit/:id" => "article#edit"
+  patch "updateArticle/:id"=>"article#updateArticle"
+  get "UserProfile/:id" => "user#UserProfile"
+  get "search" => "article#search"
+  post "upload_picture/:id", to: "user#upload_picture", as: "upload_picture"
+end

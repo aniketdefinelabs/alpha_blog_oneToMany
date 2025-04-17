@@ -1,0 +1,29 @@
+<div class="container mt-5 pt-4">
+  <h2 class="mb-4">Search Results for "<%= params[:query] %>"</h2>
+
+  <% if @articles.any? %>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <% @articles.each do |article| %>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= article.title %></h5>
+              <p class="card-text"><%= truncate(article.description, length: 250) %></p>
+              <p class="text-muted mb-0"><small>Created by: 
+                <a href="/UserProfile/<%= article.user_id %>"><%= article.user.name %></a></small>
+              </p>
+            </div>
+            <% if article.user_id == session[:user_id] %>
+              <div class="card-footer d-flex justify-content-end gap-2 action-buttons">
+                <%= link_to 'Edit', "/edit/#{article.id}", class: "btn btn-sm btn-outline-primary" %>
+                <%= link_to 'Delete', "/delete/#{article.id}", method: :delete, data: { turbo: true }, class: "btn btn-sm btn-outline-danger" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-warning">No articles found for "<%= params[:query] %>".</div>
+  <% end %>
+</div>
